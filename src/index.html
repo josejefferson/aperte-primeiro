@@ -1,29 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-BR" ng-app="apertePrimeiro">
+<html lang="pt-BR">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-	<title>🟢 APERTE PRIMEIRO 🔴</title>
-	<link rel="stylesheet" href="css/index.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sala de controle do Aperte Primeiro</title>
+	<link rel="stylesheet" href="css/admin.css">
 </head>
-<body ng-controller="apertePrimeiroCtrl">
-
-	<!-- Preparation screen -->
-	<div class="preparation" ng-if="state.preparation">
-		<div class="title">Selecione sua cor</div>
-		<div class="colors">
-			<div ng-click="selectColor('green')" class="color green"></div>
-			<div ng-click="selectColor('red')" class="color red"></div>
-		</div>
-	</div>
-
-	<!-- Main screen -->
-	<div class="main {{state.color}}" ng-class="{hit: state.hit, locked: state.locked || state.penalty}">
-		<div class="button"></div>
-	</div>
+<body>
+	
 
 	<script src="/socket.io/socket.io.min.js"></script>
-	<script src="lib/js/angular.min.js"></script>
-	<script src="js/index.js"></script>
+	<script src="/js/admin.js"></script>
 </body>
 </html>

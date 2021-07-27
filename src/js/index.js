@@ -1,54 +1,34 @@
-angular.module('apertePrimeiro', []).controller('apertePrimeiroCtrl', ['$scope', ($scope) => {
-	const socket = io()
-	let penaltyTime, hitTime
-	
-	$scope.state = {
-		preparation: true,
-		color: null,
-		locked: true,
-		penalty: false,
-		hit: false
-	}
-	
-	$scope.selectColor = (color) => {
-		socket.emit('selectColor', color)
-		socket.on('selectColor', () => {
-			socket.off('selectColor')
-			$scope.state.preparation = false
-			$scope.state.color = color
-			$scope.$apply()
-		})
-	}
-	
-	$scope.press = () => {
-		socket.emit('press', $scope.state.color)
-	}
-	
-	socket.on('locked', (locked) => {
-		$scope.state.locked = locked
-		$scope.$apply()
-	})
-	
-	socket.on('penalty', (time) => {
-		clearTimeout(penaltyTime)
-		$scope.state.penalty = true
-		penaltyTime = setTimeout(() => {
-			$scope.state.penalty = false
-			$scope.$apply()
-		}, time)
-		$scope.$apply()
-	})
-	
-	socket.on('hit', () => {
-		clearTimeout(hitTime)
-		$scope.state.hit = true
-		hitTime = setTimeout(() => {
-			$scope.state.hit = false
-			$scope.$apply()
-		}, 3000)
-		$scope.$apply()
-	})
+const $main = document.querySelector('main')
+const $button = $main.querySelector('.button')
 
-	document.querySelector('.main').addEventListener('mousedown', $scope.press)
-	document.querySelector('.main').addEventListener('touchstart', $scope.press)
-}])
+const socket = io()
+
+socket.on('connect', () => {
+	$main.classList.add('connected')
+})
+
+socket.on('disconnect', () => {
+	$main.classList.remove('connected')
+})
+
+socket.on('preparation', data => {
+	$main.style.setProperty('--color-primary', data.color)
+	$main.style.setProperty('--color-side', chroma(data.color).darken())
+	$main.style.setProperty('--color-secondary', chroma(data.color).brighten(3))
+})
+
+$button.addEventListener('mousedown', click)
+$button.addEventListener('touchstart', click)
+
+function click() {
+	socket.emit('press')
+}
+
+let hitTime = null
+socket.on('hit', () => {
+	clearTimeout(hitTime)
+	$main.classList.add('hit')
+	hitTime = setTimeout(() => {
+		$main.classList.remove('hit')
+	}, 3000)
+})

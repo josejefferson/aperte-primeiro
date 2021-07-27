@@ -1,159 +1,77 @@
 * {
-	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-	margin: 0;
-	font-family: sans-serif;
-	height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+  height: 100vh;
 }
 
-.preparation,
-.main {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	background-color: white;
+main {
+  --color-primary: #555;
+  --color-secondary: #aaa;
+  --color-side: #666;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--color-secondary);
 }
 
-.preparation { z-index: 2; }
-.main { z-index: 1; }
-
-.preparation .title {
-	font-size: 36px;
+main:not(.connected) {
+  --color-primary: #555 !important;
+  --color-secondary: #aaa !important;
+  --color-side: #666 !important;
 }
 
-.preparation .colors {
-	display: flex;
-	margin-top: 40px;
+main .button {
+  background-color: var(--color-primary);
+  box-shadow: var(--color-side) 0 8px, #000000 0 8px 10px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border-bottom: rgba(255, 255, 255, 0.5) 3px solid;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+main .button:active {
+  box-shadow: var(--color-side) 0 0, #000000 0 0 3px;
+  transform: translateY(8px);
+  border-bottom: transparent 3px solid;
 }
 
-.preparation .colors .color {
-	display: flex;
-	width: 100px;
-	height: 100px;
-	margin: 10px;
-	border-bottom: #ffffff80 3px solid;
-	border-radius: 50%;
-	transition: .2s ease;
-	cursor: pointer;
+main.hit {
+  animation: hit 0.3s steps(1) infinite;
+  pointer-events: none;
+}
+main.hit .button {
+  animation: hitBtn 0.3s steps(1) infinite;
 }
 
-.preparation .colors .color.green {
-	background-color: green;
-	box-shadow:
-		#005000 0 8px,
-		black 0 8px 10px;
+@keyframes hit {
+  from {
+    background-color: var(--color-secondary);
+  }
+  50% {
+    background-color: var(--color-primary);
+  }
+  to {
+    background-color: var(--color-secondary);
+  }
 }
-
-.preparation .colors .color.green:active {
-	box-shadow:
-		#005000 0 0,
-		black 0 0 3px;
-	transform: translateY(8px);
-	border-bottom: transparent 3px solid;
-}
-
-.preparation .colors .color.red {
-	background-color: red;
-	box-shadow:
-		#AA0000 0 8px,
-		black 0 8px 10px;
-}
-
-.preparation .colors .color.red:active {
-	box-shadow:
-		#AA0000 0 0,
-		black 0 0 3px;
-	transform: translateY(8px);
-	border-bottom: transparent 3px solid;
-}
-
-.main.locked {
-	filter: brightness(0.3);
-	pointer-events: none;
-}
-
-.main .button {
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	border-bottom: #ffffff80 3px solid;
-	transition: .2s ease;
-	cursor: pointer;
-}
-
-.main.green .button {
-	background-color: green;
-	box-shadow:
-		#005000 0 8px,
-		black 0 8px 10px;
-}
-
-.main.green:active .button {
-	box-shadow:
-		#005000 0 0,
-		black 0 0 3px;
-	transform: translateY(8px);
-	border-bottom: transparent 3px solid;
-}
-
-.main.red .button {
-	background-color: red;
-	box-shadow:
-		#AA0000 0 8px,
-		black 0 8px 10px;
-}
-
-.main.red:active .button {
-	box-shadow:
-		#AA0000 0 0,
-		black 0 0 3px;
-	transform: translateY(8px);
-	border-bottom: transparent 3px solid;
-}
-
-.main.green.hit {
-	animation: greenHit .3s steps(1) infinite;
-}
-
-.main.green.hit .button {
-	animation: greenHitBtn .3s steps(1) infinite;
-}
-
-.main.red.hit {
-	animation: redHit .3s steps(1) infinite;
-}
-
-.main.red.hit .button {
-	animation: redHitBtn .3s steps(1) infinite;
-}
-
-@keyframes greenHit {
-	from {background-color: white}
-	50% {background-color: green}
-	to {background-color: white}
-}
-
-@keyframes greenHitBtn {
-	from {background-color: green}
-	50% {background-color: white}
-	to {background-color: green}
-}
-
-@keyframes redHit {
-	from {background-color: white}
-	50% {background-color: red}
-	to {background-color: white}
-}
-
-@keyframes redHitBtn {
-	from {background-color: red}
-	50% {background-color: white}
-	to {background-color: red}
+@keyframes hitBtn {
+  from {
+    background-color: var(--color-primary);
+  }
+  50% {
+    background-color: var(--color-secondary);
+  }
+  to {
+    background-color: var(--color-primary);
+  }
 }
