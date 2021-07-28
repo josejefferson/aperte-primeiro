@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser')
 const cookie = require('cookie')
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
-let hittable = true
 const rooms = { a: { hittable: true, players: [] } }
 const sessions = {}
 const COLORS = ['red', 'green', 'blue', 'orange', 'purple', 'pink']
@@ -36,17 +35,14 @@ app.get('/admin/:id', (req, res) => {
 app.get('/newroom', (req, res) => {
 	const roomID = randomString(6)
 	rooms[roomID] = {
-		hittable: true, players: [{
-			sessionID: 'adsdsadsadsad',
-			color: 'asdsadas',
-			connected: true
-		}]
+		hittable: true,
+		players: []
 	}
 	res.redirect('/admin/' + roomID)
 })
 
 app.get('/debug', (req, res) => {
-	res.json({rooms, sessions})
+	res.json({ rooms, sessions })
 })
 
 http.listen(process.env.PORT || 3000, () => {
@@ -56,43 +52,44 @@ http.listen(process.env.PORT || 3000, () => {
 process.on('uncaughtException', console.error)
 
 io.of('/room').on('connection', socket => {
+	// Verify session
 	const cookies = cookie.parse(socket.handshake.headers.cookie || '')
 	const sessionID = cookies.session_id
+	if (!sessionID || !sessions[sessionID]) return socket.disconnect()
+
+	// Verify room
 	const roomID = socket.handshake.query.room
-	if (!sessionID || !roomID) return socket.disconnect()
 	const room = rooms[roomID]
-	if (!room) return socket.disconnect()
+	if (!roomID || !room) return socket.disconnect()
+
 	socket.sessionID = sessionID
 	socket.roomID = roomID
 	socket.room = room
+
 	socket.join(roomID)
 
-	const oldRoom = room.players.find(e => e.sessionID === sessionID)
-	if (oldRoom) {
-		socket.color = oldRoom.color
-	} else {
-		const availableColors = COLORS.reduce((acc, color) => {
-			const used = room.players.some(p => {
-				return p.color === color
-			})
-			if (used) return acc
-			acc.push(color)
-			return acc
-		}, [])
-		if (!availableColors[0]) {
-			socket.color = { h: Math.floor(Math.random() * 360), s: 1, l: 0.5 }
-		} else {
-			socket.color = availableColors[0]
-		}
-	}
+	const existentPlayer = room.players.find(player => {
+		return player.sessionID === socket.sessionID
+	})
 
-	const player = oldRoom || {
+	const player = existentPlayer || {
 		sessionID: sessionID,
-		color: socket.color,
+		color: null,
 		connected: true
 	}
 	player.connected = true
-	if (!oldRoom) room.players.push(player)
+
+	// Set color and save new player
+	if (!existentPlayer) {
+		const availableColors = COLORS.reduce((acc, color) => {
+			if (room.players.some(p => p.color === color)) return acc
+			acc.push(color)
+			return acc
+		}, [])
+		
+		player.color = availableColors[0] || { h: randomInt(359), s: 1, l: 0.5 }
+		room.players.push(player)
+	}
 
 	socket.emit('preparation', {
 		color: socket.color
@@ -123,4 +120,8 @@ function randomString(length = 10, characters = 'abcdefghijklmnopqrstuvwxyz01234
 		result += characters.charAt(Math.floor(Math.random() * charactersLength))
 	}
 	return result
+}
+
+function randomInt(max = 100, min = 0) {
+	return Math.floor(Math.random() * (max - min + 1)) + min
 }

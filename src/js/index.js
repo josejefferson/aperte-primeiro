@@ -21,8 +21,8 @@ socket.on('preparation', data => {
 	$main.style.setProperty('--color-secondary', chroma(data.color).brighten(3))
 })
 
-$button.addEventListener('mousedown', click)
-$button.addEventListener('touchstart', click)
+$main.addEventListener('mousedown', click)
+$main.addEventListener('touchstart', click)
 
 function click() {
 	socket.emit('press')
