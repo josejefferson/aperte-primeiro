@@ -27,6 +27,7 @@ main:not(.connected) {
 	--color-primary: #555 !important;
 	--color-secondary: #aaa !important;
 	--color-side: #666 !important;
+	pointer-events: none;
 }
 
 main .button {
