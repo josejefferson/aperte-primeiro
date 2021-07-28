@@ -4,19 +4,28 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Document</title>
+	<title>Aperte primeiro!</title>
 	<link rel="stylesheet" href="/css/join.css">
 </head>
 
 <body>
-	<a href="/newroom">
-		<button>Nova sala</button>
-	</a>
+	<header>
+		<h1>Aperte primeiro!</h1>
+	</header>
 
-	<br>
+	<main>
+		<section class="join-room">
+			<h2>Código da sala</h2>
+			<input type="text" class="input-text room-id" placeholder="######" minlength="6" maxlength="6"
+				required autofocus>
+			<div class="room-not-found hidden">Sala não encontrada!</div>
+			<button class="join">Entrar na sala</button>
+		</section>
 
-	<input type="text" class="roomID">
-	<button class="joinRoom">Entrar na sala</button>
+		<section class="new-room">
+			<button class="new">Criar nova sala</button>
+		</section>
+	</main>
 	<script src="/js/join.js"></script>
 </body>
 

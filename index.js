@@ -92,7 +92,7 @@ io.of('/room').on('connection', socket => {
 	}
 
 	socket.emit('preparation', {
-		color: socket.color
+		color: player.color
 	})
 
 	socket.on('press', () => {

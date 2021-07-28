@@ -1,5 +1,7 @@
 const $main = document.querySelector('main')
 const $button = $main.querySelector('.button')
+const siren = new Audio('../sounds/siren.mp3')
+siren.loop = true
 
 const socket = io(`${window.location.origin}/room`, {
 	query: {
@@ -31,9 +33,12 @@ function click() {
 let hitTime = null
 socket.on('hit', () => {
 	clearTimeout(hitTime)
+	siren.play()
 	$main.classList.add('hit')
 	hitTime = setTimeout(() => {
 		$main.classList.remove('hit')
+		siren.pause()
+		siren.currentTime = 0
 	}, 3000)
 	navigator.vibrate(1000)
 })
