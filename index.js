@@ -6,7 +6,9 @@ const cookie = require('cookie')
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 let hittable = true
-const rooms = {}
+const rooms = {a:{}}
+const sessions = {}
+const COLORS = ['red', 'green', 'blue', 'orange', 'purple', 'pink']
 
 app.use(cookieParser())
 app.use((req, res, next) => {
@@ -35,7 +37,7 @@ process.on('uncaughtException', console.error)
 io.on('connection', socket => {
 	socket.color = 'red'
 	socket.emit('preparation', {
-		color: 'red'
+		color: COLORS[Math.floor(Math.random() * 6)]
 	})
 
 	socket.on('press', () => {
@@ -47,3 +49,12 @@ io.on('connection', socket => {
 		}, 3000)
 	})
 })
+
+function randomString(length = 10, characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') {
+	const charactersLength = characters.length
+	let result = ''
+	for (let i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength))
+	}
+	return result
+}
