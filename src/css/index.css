@@ -39,6 +39,8 @@ main .button {
   border-bottom: rgba(255, 255, 255, 0.5) 3px solid;
   transition: 0.2s ease;
   cursor: pointer;
+  max-height: 70vmin;
+  max-width: 70vmin;
 }
 main .button:active {
   box-shadow: var(--color-side) 0 0, #000000 0 0 3px;

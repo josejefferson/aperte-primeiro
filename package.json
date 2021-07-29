@@ -4,8 +4,7 @@
   "main": "index.js",
 	"scripts": {
 		"start": "node index.js",
-		"build": "npx sass src/scss:src/css --no-source-map",
-		"scss": "npx node-sass -watch src/scss -o src/css"
+		"build": "npx sass src/scss:src/css --no-source-map"
 	},
   "license": "MIT",
   "dependencies": {

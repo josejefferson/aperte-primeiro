@@ -41,6 +41,8 @@ main .button {
 	border-bottom: rgba(255, 255, 255, 0.5) 3px solid;
 	transition: .2s ease;
 	cursor: pointer;
+	max-height: 70vmin;
+	max-width: 70vmin;
 
 	&:active {
 		box-shadow:
