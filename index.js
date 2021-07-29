@@ -22,9 +22,13 @@ app.use((req, res, next) => {
 })
 app.use(express.static('src'))
 
+app.get('/', (req, res) => {
+	res.sendFile('pages/join.html', { root: '.' })
+})
+
 app.get('/room/:id', (req, res) => {
 	if (!rooms[req.params.id.toLowerCase()]) return res.redirect('/?roomNotFound')
-	res.sendFile('pages/index.html', { root: '.' })
+	res.sendFile('pages/button.html', { root: '.' })
 })
 
 app.get('/admin/:id', (req, res) => {
