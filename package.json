@@ -2,6 +2,11 @@
   "name": "aperte-primeiro",
   "version": "1.0.0",
   "main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"build": "npx sass src/scss:src/css --no-source-map",
+		"scss": "npx node-sass -watch src/scss -o src/css"
+	},
   "license": "MIT",
   "dependencies": {
     "cookie": "^0.4.1",
