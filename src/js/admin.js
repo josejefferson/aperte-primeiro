@@ -4,6 +4,4 @@ const socket = io(`${window.location.origin}/admin`, {
 	}
 })
 
-socket.on('preparation', console.log)
-socket.on('hit', console.log)
-socket.on('player', console.log)
+socket.onAny(console.log)

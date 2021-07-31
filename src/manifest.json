@@ -1,0 +1,15 @@
+{
+	"name": "Aperte o botão",
+	"short_name": "Aperte o botão",
+	"description": "",
+	"icons": [{
+			"src": "img/icon.png",
+			"type": "image/png",
+			"sizes": "256x256"
+		}
+	],
+	"start_url": "/",
+	"display": "fullscreen",
+	"background_color": "#FFFFFF",
+	"theme_color": "#FFFFFF"
+}
