@@ -1,8 +1,8 @@
 const EventEmitter = require('events')
 const Player = require('./Player')
 const { randomString, randomColor } = require('../helpers/index')
-const COLORS = ['red', 'green', 'blue', 'orange', 'purple', 'pink']
 
+const COLORS = ['red', 'green', 'blue', 'orange', 'purple', 'pink']
 class Room extends EventEmitter {
 	constructor(id, players) {
 		super()
@@ -18,15 +18,17 @@ class Room extends EventEmitter {
 			player.setColor(this.availableColors()[0] || randomColor())
 			this.players.push(player)
 		}
-		
-		player.on('connect', () => this.emit('playerConnected', player))
-		player.on('disconnect', () => this.emit('playerDisconnected', player))
 
+		player.on('connect', () => this.emit('playerConnected', player))
+		player.on('disconnect', () => this.emit('playerDisconnected', sessionID))
+		player.on('buttonPress', () => this.emit('buttonPressed', sessionID))
 		return player
 	}
 
 	getPlayer(sessionID) {
-		return this.players.find(player => player.sessionID === sessionID)
+		return this.players.find(player => {
+			return player.sessionID === sessionID
+		})
 	}
 
 	addPlayer(player) {
@@ -50,10 +52,7 @@ class Room extends EventEmitter {
 			setTimeout(() => {
 				this.hittable = true
 			}, 3000)
-			this.getPlayer(sessionID).hit()
-			this.emit('buttonPressed', sessionID)
-		} else {
-			return false
+			this.getPlayer(sessionID).buttonPress()
 		}
 	}
 

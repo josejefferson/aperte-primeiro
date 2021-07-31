@@ -27,11 +27,11 @@ $main.addEventListener('mousedown', click)
 $main.addEventListener('touchstart', click)
 
 function click() {
-	socket.emit('press')
+	socket.emit('buttonPress')
 }
 
 let hitTime = null
-socket.on('hit', () => {
+socket.on('buttonPressed', () => {
 	clearTimeout(hitTime)
 	siren.play()
 	$main.classList.add('hit')

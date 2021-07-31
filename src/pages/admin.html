@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="/favicon.png" type="image/png">
+	<link rel="manifest" href="/manifest.json">
+	<title>Sala de controle do Aperte Primeiro!</title>
+	<link rel="stylesheet" href="/lib/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body class="preload">
+	<aside class="players">
+		<h2>Jogadores</h2>
+		<div class="player">
+			<div class="color"></div>
+			<div class="name">Player1</div>
+			<div class="points">0</div>
+			<div class="options">
+				<button class="option mdi mdi-pencil" title="Renomear"></button>
+				<button class="option mdi mdi-close" title="Remover"></button>
+				<button class="option mdi mdi-minus" title="Diminuir 1 ponto"></button>
+				<button class="option mdi mdi-plus" title="Aumentar 1 ponto"></button>
+			</div>
+		</div>
+	</aside>
+
+	<main>
+		<div class="last-press">
+			<div class="button"></div>
+			<div class="name">Player 1</div>
+			<div class="recent-colors">
+				<div class="color"></div>
+				<div class="color"></div>
+				<div class="color"></div>
+				<div class="color"></div>
+				<div class="color"></div>
+			</div>
+		</div>
+
+		<div class="room-details">
+			<h2 class="label">Código da sala</h2>
+			<div class="room-code">
+				<span class="code">AAAAAA</span>
+				<i class="copy-code mdi mdi-content-copy"></i>
+				<br>
+				<div class="url-box">
+					<span class="url">http://localhost:3000/room/aaaaaa</span>
+					<i class="copy-url mdi mdi-content-copy"></i>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script src="/socket.io/socket.io.min.js"></script>
+	<script src="/js/admin.js"></script>
+</body>
+
+</html>

@@ -19,13 +19,13 @@ class Player extends EventEmitter {
 		this.removeAllListeners()
 	}
 
-	hit() {
-		this.emit('hit')
-	}
-
 	setColor(color) {
 		this.color = color
 		this.emit('color', color)
+	}
+
+	buttonPress() {
+		this.emit('buttonPress')
 	}
 }
 
