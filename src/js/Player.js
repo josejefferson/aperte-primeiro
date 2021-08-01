@@ -1,12 +1,9 @@
-const EventEmitter = require('events')
-
-class Player extends EventEmitter {
-	constructor(id, color, name) {
-		super()
+class Player {
+	constructor(id, color, connected, name) {
 		this.sessionID = id
 		this.color = color
+		this.connected = connected
 		this.name = name || 'Player'
-		this.connected = true
 	}
 
 	connect() {
@@ -23,18 +20,9 @@ class Player extends EventEmitter {
 	setColor(color) {
 		this.color = color
 		this.emit('color', color)
-		this.emit('change', this)
-	}
-	
-	setName(name) {
-		this.name = name
-		this.emit('name', name)
-		this.emit('change', this)
 	}
 
 	buttonPress() {
 		this.emit('buttonPress')
 	}
 }
-
-module.exports = Player

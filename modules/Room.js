@@ -2,7 +2,7 @@ const EventEmitter = require('events')
 const Player = require('./Player')
 const { randomString, randomColor } = require('../helpers/index')
 
-const COLORS = ['red', 'green', 'blue', 'orange', 'purple', 'pink']
+const COLORS = ['red', 'green', 'blue', 'orange', 'purple', 'pink', 'aqua', 'lime', 'maroon', 'teal']
 class Room extends EventEmitter {
 	constructor(id, players) {
 		super()
@@ -11,9 +11,10 @@ class Room extends EventEmitter {
 		this.players = players || []
 	}
 
-	connectedPlayer(sessionID) {
+	connectedPlayer(sessionID, socket) {
 		const existentPlayer = this.getPlayer(sessionID)
 		const player = existentPlayer || new Player(sessionID)
+		player.__proto__.socket = socket
 		if (!existentPlayer) {
 			player.setColor(this.availableColors()[0] || randomColor())
 			this.players.push(player)
@@ -22,6 +23,7 @@ class Room extends EventEmitter {
 		player.on('connect', () => this.emit('playerConnected', player))
 		player.on('disconnect', () => this.emit('playerDisconnected', sessionID))
 		player.on('buttonPress', () => this.emit('buttonPressed', sessionID))
+		player.on('change', () => this.emit('playerChanged', player))
 		return player
 	}
 
@@ -36,12 +38,13 @@ class Room extends EventEmitter {
 		this.emit('playerConnected', player)
 	}
 
-	rmPlayer(playerID) {
+	rmPlayer(sessionID) {
 		const index = this.players.findIndex(player => {
-			return player.playerID === playerID
+			return player.sessionID === sessionID
 		})
 		if (index > -1) {
 			const player = this.players.splice(index, 1)[0]
+			player.socket?.disconnect()
 			this.emit('playerRemoved', player)
 		}
 	}

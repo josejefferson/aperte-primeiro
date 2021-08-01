@@ -21,7 +21,7 @@ module.exports = io => {
 
 
 	io.of('/room').on('connection', socket => {
-		const player = socket.room.connectedPlayer(socket.sessionID)
+		const player = socket.room.connectedPlayer(socket.sessionID, socket)
 
 		player.once('connect', () => {
 			socket.emit('preparation', player)
@@ -29,6 +29,10 @@ module.exports = io => {
 
 		player.on('buttonPress', () => {
 			socket.emit('buttonPressed')
+		})
+
+		player.on('color', () => {
+			socket.emit('preparation', player)
 		})
 
 		socket.on('buttonPress', () => socket.room.buttonPress(socket.sessionID))
@@ -49,14 +53,29 @@ module.exports = io => {
 			socket.emit('playerDisconnected', sessionID)
 		})
 
-		room.on('playerRemoved', sessionID => {
-			socket.emit('playerRemoved', sessionID)
+		room.on('playerRemoved', player => {
+			socket.emit('playerRemoved', player.sessionID)
 		})
-		
+
+		room.on('playerChanged', player => {
+			socket.emit('playerChanged', player)
+		})
+
 		room.on('buttonPressed', sessionID => {
 			socket.emit('buttonPressed', sessionID)
 		})
 
+		socket.on('setPlayerColor', playerData => {
+			const player = room.getPlayer(playerData.sessionID)
+			if (player) player.setColor(playerData.color)
+		})
+
+		socket.on('setPlayerName', playerData => {
+			const player = room.getPlayer(playerData.sessionID)
+			if (player) player.setName(playerData.name)
+		})
+
+		socket.on('rmPlayer', sessionID => room.rmPlayer(sessionID))
 		socket.on('disconnect', () => room.removeAllListeners())
 	})
 }

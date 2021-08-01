@@ -13,18 +13,17 @@ body {
   color: #212529;
   background-color: #e9ecef;
 }
-body.preload * {
-  transition: none !important;
-  animation: none !important;
-}
 
 .players {
-  background-color: #ced4da;
-  width: 30%;
+  border-right: #ced4da 1px solid;
+  max-width: 250px;
+  flex: 1;
+  overflow: auto;
+  height: 100%;
 }
 .players h2 {
   font-size: 1.1rem;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 10px 15px;
   text-align: center;
 }
@@ -39,15 +38,18 @@ body.preload * {
   position: relative;
   transition: 0.2s ease;
 }
+.players .player.disconnected .color, .players .player.disconnected .name, .players .player.disconnected .points {
+  opacity: 0.2;
+}
 .players .player.press {
   background-color: #adb5bd;
-  animation: a 5s ease;
+  animation: player 5s ease;
 }
 .players .player:hover .options {
   opacity: 1;
 }
 .players .player .color {
-  background: orange;
+  background: var(--color);
   border-radius: 50%;
   border: white 2px solid;
   box-shadow: #555 0 0 0px 1px;
@@ -94,8 +96,7 @@ body.preload * {
   transition: 0.2s ease;
   width: 36px;
 }
-.players .player .options .option:hover,
-.players .player .options .option:focus {
+.players .player .options .option:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
 .players .player .options .option:active {
@@ -106,17 +107,17 @@ main {
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 70%;
+  flex: 1;
+  max-width: 800px;
   height: 100%;
   overflow: auto;
+  margin: auto;
 }
 main .last-press {
   background-color: white;
   padding: 30px;
   margin: 15px;
   border-radius: 20px;
-  --button-color: red;
-  --shadow-color: red;
 }
 main .last-press .button {
   --shadow: #555 0 0 0 .5vmin, inset #555 0 0 0 .3vmin;
@@ -128,6 +129,9 @@ main .last-press .button {
   margin: auto;
   width: 30vmin;
 }
+main .last-press .button.animated {
+  animation: scale 0.5s ease, pulse 5s ease;
+}
 main .last-press .name {
   font-size: 2rem;
   margin-top: 20px;
@@ -137,15 +141,15 @@ main .last-press .recent-colors {
   align-items: center;
   justify-content: center;
   margin-top: 30px;
-  gap: 15px;
+  gap: 25px;
+  height: 20px;
 }
 main .last-press .recent-colors .color {
-  background-color: orange;
+  background-color: var(--color);
   border-radius: 50%;
   border: white 2px solid;
   box-shadow: #555 0 0 0px 1px;
   height: 20px;
-  margin-right: 10px;
   width: 20px;
 }
 main .room-details {
@@ -164,6 +168,7 @@ main .room-details .room-code {
 main .room-details .room-code .code {
   letter-spacing: 10px;
   font-weight: bold;
+  text-transform: uppercase;
 }
 main .room-details .room-code .copy-code {
   margin-left: 20px;
@@ -172,7 +177,8 @@ main .room-details .room-code .copy-code {
 main .room-details .room-code .url-box {
   font-size: 1rem;
   display: flex;
-  border: #00f 2px solid;
+  border: #00b4d8 2px solid;
+  color: #0077b6;
   border-radius: 1000px;
   padding: 5px 10px;
   margin: 20px 30px;
@@ -215,10 +221,9 @@ main .room-details .room-code .url-box .copy-url {
     transform: scale(1);
   }
 }
-@keyframes a {
+@keyframes player {
   from, 10% {
     left: 0;
-    border-radius: 0;
     transform: scale(1);
   }
   5% {

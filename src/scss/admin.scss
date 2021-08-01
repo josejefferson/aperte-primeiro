@@ -12,20 +12,18 @@ body {
 	margin: 0;
 	color: #212529;
 	background-color: #e9ecef;
-
-	&.preload * {
-		transition: none !important;
-		animation: none !important;
-	}
 }
 
 .players {
-	background-color: #ced4da;
-	width: 30%;
+	border-right: #ced4da 1px solid;
+	max-width: 250px;
+	flex: 1;
+	overflow: auto;
+	height: 100%;
 
 	h2 {
 		font-size: 1.1rem;
-		margin: 10px 0;
+		margin: 5px 0;
 		padding: 10px 15px;
 		text-align: center;
 	}
@@ -41,9 +39,15 @@ body {
 		position: relative;
 		transition: .2s ease;
 
+		&.disconnected .color,
+		&.disconnected .name,
+		&.disconnected .points {
+			opacity: 0.2;
+		}
+
 		&.press {
 			background-color: #adb5bd;
-			animation: a 5s ease;
+			animation: player 5s ease;
 		}
 
 		&:hover .options {
@@ -51,7 +55,7 @@ body {
 		}
 
 		.color {
-			background: orange;
+			background: var(--color);
 			border-radius: 50%;
 			border: white 2px solid;
 			box-shadow: #555 0 0 0px 1px;
@@ -102,8 +106,7 @@ body {
 				width: 36px;
 			}
 
-			.option:hover,
-			.option:focus {
+			.option:hover {
 				background-color: rgba(255, 255, 255, 0.3);
 			}
 
@@ -118,17 +121,17 @@ main {
 	display: flex;
 	flex-direction: column;
 	text-align: center;
-	width: 70%;
+	flex: 1;
+	max-width: 800px;
 	height: 100%;
 	overflow: auto;
+	margin: auto;
 
 	.last-press {
 		background-color: white;
 		padding: 30px;
 		margin: 15px;
 		border-radius: 20px;
-		--button-color: red;
-		--shadow-color: red;
 
 		.button {
 			--shadow: #555 0 0 0 .5vmin, inset #555 0 0 0 .3vmin;
@@ -139,7 +142,10 @@ main {
 			height: 30vmin;
 			margin: auto;
 			width: 30vmin;
-			// animation: scale .5s ease, pulse 5s ease;
+			
+			&.animated {
+				animation: scale .5s ease, pulse 5s ease;
+			}
 		}
 
 		.name {
@@ -152,15 +158,15 @@ main {
 			align-items: center;
 			justify-content: center;
 			margin-top: 30px;
-			gap: 15px;
+			gap: 25px;
+			height: 20px;
 
 			.color {
-				background-color: orange;
+				background-color: var(--color);
 				border-radius: 50%;
 				border: white 2px solid;
 				box-shadow: #555 0 0 0px 1px;
 				height: 20px;
-				margin-right: 10px;
 				width: 20px;
 			}
 		}
@@ -175,30 +181,37 @@ main {
 		h2 {
 			margin: 0;
 		}
+
 		.room-code {
 			margin-top: 20px;
 			font-size: 3rem;
+
 			.code {
 				letter-spacing: 10px;
 				font-weight: bold;
+				text-transform: uppercase;
 			}
+
 			.copy-code {
 				margin-left: 20px;
 				cursor: pointer;
 			}
+
 			.url-box {
 				font-size: 1rem;
 				display: flex;
-				border: #00f 2px solid;
+				border: #00b4d8 2px solid;
+				color: #0077b6;
 				border-radius: 1000px;
 				padding: 5px 10px;
 				margin: 20px 30px;
-				
+
 				.url {
 					text-overflow: ellipsis;
 					overflow: hidden;
 					white-space: nowrap;
 				}
+
 				.copy-url {
 					margin-left: auto;
 					padding-left: 10px;
@@ -243,12 +256,11 @@ main {
 	}
 }
 
-@keyframes a {
+@keyframes player {
 
 	from,
 	10% {
 		left: 0;
-		border-radius: 0;
 		transform: scale(1);
 	}
 
@@ -256,7 +268,6 @@ main {
 		transform: scale(1.2);
 		background-color: #adb5bd;
 		left: 20px;
-		// border-radius: 40px;
 	}
 
 	5%,
