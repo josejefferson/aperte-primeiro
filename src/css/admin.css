@@ -14,6 +14,10 @@ body {
   background-color: #e9ecef;
 }
 
+.templates {
+  display: none;
+}
+
 .players {
   border-right: #ced4da 1px solid;
   max-width: 250px;
@@ -161,20 +165,25 @@ main .room-details {
 main .room-details h2 {
   margin: 0;
 }
-main .room-details .room-code {
+main .room-details .content {
+  display: flex;
+  align-items: center;
+}
+main .room-details .content .room-code {
   margin-top: 20px;
   font-size: 3rem;
+  flex: 1;
 }
-main .room-details .room-code .code {
+main .room-details .content .room-code .code {
   letter-spacing: 10px;
   font-weight: bold;
   text-transform: uppercase;
 }
-main .room-details .room-code .copy-code {
+main .room-details .content .room-code .copy-code {
   margin-left: 20px;
   cursor: pointer;
 }
-main .room-details .room-code .url-box {
+main .room-details .content .room-code .url-box {
   font-size: 1rem;
   display: flex;
   border: #00b4d8 2px solid;
@@ -183,15 +192,25 @@ main .room-details .room-code .url-box {
   padding: 5px 10px;
   margin: 20px 30px;
 }
-main .room-details .room-code .url-box .url {
+main .room-details .content .room-code .url-box .url {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-main .room-details .room-code .url-box .copy-url {
+main .room-details .content .room-code .url-box .copy-url {
   margin-left: auto;
   padding-left: 10px;
   cursor: pointer;
+}
+main .room-details .content .qr-code {
+  width: 120px;
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  border: #555 1px solid;
+}
+main .room-details .content .qr-code img {
+  width: 100%;
 }
 
 @keyframes slideDown {

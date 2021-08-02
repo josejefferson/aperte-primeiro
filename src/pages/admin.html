@@ -27,14 +27,17 @@
 
 		<div class="room-details">
 			<h2 class="label">Código da sala</h2>
-			<div class="room-code">
-				<span class="code">AAAAAA</span>
-				<i class="copy-code mdi mdi-content-copy"></i>
-				<br>
-				<div class="url-box">
-					<span class="url">http://localhost:3000/room/aaaaaa</span>
-					<i class="copy-url mdi mdi-content-copy"></i>
+			<div class="content">
+				<div class="room-code">
+					<span class="code">AAAAAA</span>
+					<i class="copy-code mdi mdi-content-copy"></i>
+					<br>
+					<div class="url-box">
+						<span class="url">http://localhost:3000/room/aaaaaa</span>
+						<i class="copy-url mdi mdi-content-copy"></i>
+					</div>
 				</div>
+				<div class="qr-code"></div>
 			</div>
 		</div>
 	</main>
@@ -57,6 +60,7 @@
 	<script src="/socket.io/socket.io.min.js"></script>
 	<script src="/lib/js/chroma.min.js"></script>
 	<script src="/lib/js/sweetalert2.min.js"></script>
+	<script src="/lib/js/qrcode.min.js"></script>
 	<script src="/js/admin.js"></script>
 </body>
 

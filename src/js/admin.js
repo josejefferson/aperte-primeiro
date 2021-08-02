@@ -12,9 +12,16 @@ const $playerTemplate = document.querySelector('.templates .player')
 const $button = document.querySelector('.last-press .button')
 const $buttonPlayerName = document.querySelector('.last-press .name')
 const $recentColors = document.querySelector('.last-press .recent-colors')
+const $qrCode = document.querySelector('.room-details .qr-code')
 
 $roomCode.innerText = room
 $roomURL.innerText = roomURL
+new QRCode($qrCode, {
+	text: roomURL,
+	colorDark: '#000',
+	colorLight: 'transparent',
+	correctLevel: QRCode.CorrectLevel.L
+})
 
 socket.onAny(console.log)
 

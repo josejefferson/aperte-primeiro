@@ -14,6 +14,10 @@ body {
 	background-color: #e9ecef;
 }
 
+.templates {
+	display: none;
+}
+
 .players {
 	border-right: #ced4da 1px solid;
 	max-width: 250px;
@@ -142,7 +146,7 @@ main {
 			height: 30vmin;
 			margin: auto;
 			width: 30vmin;
-			
+
 			&.animated {
 				animation: scale .5s ease, pulse 5s ease;
 			}
@@ -182,40 +186,58 @@ main {
 			margin: 0;
 		}
 
-		.room-code {
-			margin-top: 20px;
-			font-size: 3rem;
+		.content {
+			display: flex;
+			align-items: center;
 
-			.code {
-				letter-spacing: 10px;
-				font-weight: bold;
-				text-transform: uppercase;
-			}
+			.room-code {
+				margin-top: 20px;
+				font-size: 3rem;
+				flex: 1;
 
-			.copy-code {
-				margin-left: 20px;
-				cursor: pointer;
-			}
-
-			.url-box {
-				font-size: 1rem;
-				display: flex;
-				border: #00b4d8 2px solid;
-				color: #0077b6;
-				border-radius: 1000px;
-				padding: 5px 10px;
-				margin: 20px 30px;
-
-				.url {
-					text-overflow: ellipsis;
-					overflow: hidden;
-					white-space: nowrap;
+				.code {
+					letter-spacing: 10px;
+					font-weight: bold;
+					text-transform: uppercase;
 				}
 
-				.copy-url {
-					margin-left: auto;
-					padding-left: 10px;
+				.copy-code {
+					margin-left: 20px;
 					cursor: pointer;
+				}
+
+				.url-box {
+					font-size: 1rem;
+					display: flex;
+					border: #00b4d8 2px solid;
+					color: #0077b6;
+					border-radius: 1000px;
+					padding: 5px 10px;
+					margin: 20px 30px;
+
+					.url {
+						text-overflow: ellipsis;
+						overflow: hidden;
+						white-space: nowrap;
+					}
+
+					.copy-url {
+						margin-left: auto;
+						padding-left: 10px;
+						cursor: pointer;
+					}
+				}
+			}
+
+			.qr-code {
+				width: 120px;
+				background: white;
+				padding: 8px;
+				border-radius: 10px;
+				border: #555 1px solid;
+
+				img {
+					width: 100%;
 				}
 			}
 		}
