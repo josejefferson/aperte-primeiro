@@ -1,0 +1,111 @@
+@media (max-width: 767px) {
+	.players {
+		border-right: none;
+		max-width: none !important;
+	}
+}
+
+.players {
+	border-right: #ced4da 1px solid;
+	flex: 1;
+	height: 100%;
+	max-width: 250px;
+	overflow: auto;
+}
+
+.players h2 {
+	font-size: 1.5rem;
+	margin: 5px 0;
+	padding: 10px 15px;
+	text-align: center;
+}
+
+.players .player {
+	--height: 42px;
+	align-items: center;
+	animation: slideDown .2s ease;
+	display: flex;
+	height: var(--height);
+	overflow: hidden;
+	padding: 0 10px;
+	position: relative;
+	transition: .2s ease;
+
+	&.disconnected .color,
+	&.disconnected .name,
+	&.disconnected .points {
+		opacity: 0.2;
+	}
+
+	&.press {
+		animation: player 5s ease;
+		background-color: #adb5bd;
+	}
+
+	&:hover .options,
+	&:focus-within .options {
+		opacity: 1;
+	}
+}
+
+.players .player .color {
+	background: var(--color);
+	border-radius: 50%;
+	border: white 2px solid;
+	box-shadow: #555 0 0 0px 1px;
+	height: 20px;
+	margin-right: 10px;
+	width: 20px;
+}
+
+.players .player .name {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.players .player .points {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.players .player .options {
+	align-items: center;
+	background-color: rgba(70, 70, 70, 0.9);
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	opacity: 0;
+	position: absolute;
+	right: 0;
+	transition: .2s ease;
+	width: 100%;
+
+	.option {
+		align-items: center;
+		background-color: transparent;
+		border-radius: 50%;
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		display: flex;
+		font-size: 1.5rem;
+		height: 36px;
+		justify-content: center;
+		margin-left: 5px;
+		outline: none;
+		transition: .2s ease;
+		width: 36px;
+	}
+
+	.option:hover,
+	.option:focus {
+		background-color: rgba(255, 255, 255, 0.3);
+	}
+
+	.option:active {
+		transform: scale(0.8);
+	}
+}

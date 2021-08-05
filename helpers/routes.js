@@ -11,6 +11,7 @@ routes.use((req, res, next) => {
 		sessions[sessionID] = {}
 		res.cookie('session_id', sessionID, { maxAge: 100000000000 })
 	}
+	req.sessionID = sessionID
 	req.session = sessions[sessionID]
 	next()
 })
@@ -27,14 +28,18 @@ routes.get('/room/:id', (req, res) => {
 })
 
 routes.get('/admin/:id', (req, res) => {
-	if (!rooms[req.params.id.toLowerCase()]) {
+	const room = rooms[req.params.id.toLowerCase()]
+	if (!room) {
 		return res.redirect('/?roomNotFound')
+	}
+	if (room.owner && room.owner !== req.sessionID) {
+		return res.redirect('/?accessRestrict')
 	}
 	res.sendFile('src/pages/admin.html', { root: '.' })
 })
 
 routes.get('/newroom', (req, res) => {
-	const room = new Room()
+	const room = new Room(req.sessionID)
 	rooms[room.id] = room
 	res.redirect('/admin/' + room.id)
 })

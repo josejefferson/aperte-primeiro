@@ -35,6 +35,20 @@ module.exports = io => {
 			socket.emit('preparation', player)
 		})
 
+		player.on('name', name => {
+			socket.emit('name', { name })
+		})
+
+		player.on('disconnect', () => {
+			socket.disconnect()
+		})
+
+		socket.room.on('close', () => {
+			socket.emit('roomClosed')
+			socket.disconnect()
+		})
+
+		socket.on('setName', name => player.setName(name))
 		socket.on('buttonPress', () => socket.room.buttonPress(socket.sessionID))
 		socket.on('disconnect', () => player.disconnect())
 		player.connect()
@@ -42,6 +56,10 @@ module.exports = io => {
 
 
 	io.of('/admin').on('connection', socket => {
+		if (socket.room.owner && (socket.sessionID !== socket.room.owner)) {
+			return socket.disconnect()
+		}
+
 		const room = socket.room
 		socket.emit('preparation', room)
 
@@ -65,6 +83,11 @@ module.exports = io => {
 			socket.emit('buttonPressed', sessionID)
 		})
 
+		room.on('close', () => {
+			socket.emit('roomClosed')
+			socket.disconnect()
+		})
+
 		socket.on('setPlayerColor', playerData => {
 			const player = room.getPlayer(playerData.sessionID)
 			if (player) player.setColor(playerData.color)
@@ -75,7 +98,15 @@ module.exports = io => {
 			if (player) player.setName(playerData.name)
 		})
 
-		socket.on('rmPlayer', sessionID => room.rmPlayer(sessionID))
+		socket.on('rmPlayer', sessionID => {
+			room.rmPlayer(sessionID)
+		})
+
+		socket.on('closeRoom', () => {
+			room.closeRoom()
+			delete rooms[socket.roomID]
+		})
+
 		socket.on('disconnect', () => room.removeAllListeners())
 	})
 }

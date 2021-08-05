@@ -5,7 +5,7 @@ class Player extends EventEmitter {
 		super()
 		this.sessionID = id
 		this.color = color
-		this.name = name || 'Player'
+		this.name = name
 		this.connected = true
 	}
 

@@ -1,36 +1,52 @@
 * {
+  -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
   user-select: none;
-  -webkit-tap-highlight-color: transparent;
 }
 
 body {
+  background-color: #e9ecef;
+  color: #212529;
   display: flex;
   flex-wrap: wrap;
   font-family: Roboto, Arial, sans-serif;
   height: 100vh;
   margin: 0;
-  color: #212529;
-  background-color: #e9ecef;
 }
 
+@media (max-width: 767px) {
+  body {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 15px;
+  }
+}
 .templates {
   display: none;
 }
 
+@media (max-width: 767px) {
+  .players {
+    border-right: none;
+    max-width: none !important;
+  }
+}
 .players {
   border-right: #ced4da 1px solid;
-  max-width: 250px;
   flex: 1;
-  overflow: auto;
   height: 100%;
+  max-width: 250px;
+  overflow: auto;
 }
+
 .players h2 {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   margin: 5px 0;
   padding: 10px 15px;
   text-align: center;
 }
+
 .players .player {
   --height: 42px;
   align-items: center;
@@ -46,12 +62,13 @@ body {
   opacity: 0.2;
 }
 .players .player.press {
-  background-color: #adb5bd;
   animation: player 5s ease;
+  background-color: #adb5bd;
 }
-.players .player:hover .options {
+.players .player:hover .options, .players .player:focus-within .options {
   opacity: 1;
 }
+
 .players .player .color {
   background: var(--color);
   border-radius: 50%;
@@ -61,17 +78,20 @@ body {
   margin-right: 10px;
   width: 20px;
 }
+
 .players .player .name {
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .players .player .points {
   font-size: 1.2em;
   font-weight: bold;
   margin-left: 10px;
 }
+
 .players .player .options {
   align-items: center;
   background-color: rgba(70, 70, 70, 0.9);
@@ -100,28 +120,55 @@ body {
   transition: 0.2s ease;
   width: 36px;
 }
-.players .player .options .option:hover {
+.players .player .options .option:hover,
+.players .player .options .option:focus {
   background-color: rgba(255, 255, 255, 0.3);
 }
 .players .player .options .option:active {
   transform: scale(0.8);
 }
 
+@media (max-width: 767px) {
+  main {
+    order: -1;
+    width: 100%;
+  }
+}
+@media (max-width: 590px) {
+  main .room-details .content {
+    flex-direction: column;
+  }
+
+  main .room-details .content .qr-code {
+    margin-top: 20px;
+    order: -1;
+  }
+}
+@media (max-width: 425px) {
+  main .room-details .content .room-code {
+    font-size: 1.8rem !important;
+  }
+
+  main .room-details .content .room-code .url-box {
+    margin: 20px 0 !important;
+  }
+}
 main {
   display: flex;
   flex-direction: column;
-  text-align: center;
   flex: 1;
-  max-width: 800px;
   height: 100%;
-  overflow: auto;
   margin: auto;
+  max-width: 800px;
+  overflow: auto;
+  text-align: center;
 }
+
 main .last-press {
   background-color: white;
-  padding: 30px;
-  margin: 15px;
   border-radius: 20px;
+  margin: 15px;
+  padding: 30px;
 }
 main .last-press .button {
   --shadow: #555 0 0 0 .5vmin, inset #555 0 0 0 .3vmin;
@@ -141,12 +188,12 @@ main .last-press .name {
   margin-top: 20px;
 }
 main .last-press .recent-colors {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 30px;
+  display: flex;
   gap: 25px;
   height: 20px;
+  justify-content: center;
+  margin-top: 30px;
 }
 main .last-press .recent-colors .color {
   background-color: var(--color);
@@ -156,61 +203,115 @@ main .last-press .recent-colors .color {
   height: 20px;
   width: 20px;
 }
+
 main .room-details {
   background-color: white;
-  padding: 30px;
-  margin: 15px;
   border-radius: 20px;
+  margin: 15px;
+  padding: 30px;
 }
+
 main .room-details h2 {
+  font-size: 1.5rem;
   margin: 0;
 }
+
 main .room-details .content {
-  display: flex;
   align-items: center;
+  display: flex;
 }
+
 main .room-details .content .room-code {
-  margin-top: 20px;
-  font-size: 3rem;
   flex: 1;
+  font-size: 3rem;
+  margin-top: 20px;
+  width: 100%;
 }
 main .room-details .content .room-code .code {
-  letter-spacing: 10px;
   font-weight: bold;
+  letter-spacing: 10px;
   text-transform: uppercase;
 }
 main .room-details .content .room-code .copy-code {
-  margin-left: 20px;
+  border-radius: 50%;
   cursor: pointer;
+  display: inline-block;
+  height: 1.4em;
+  margin-left: 20px;
+  outline: none;
+  transition: 0.2s ease;
+  width: 1.4em;
+}
+main .room-details .content .room-code .copy-code:hover, main .room-details .content .room-code .copy-code:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+main .room-details .content .room-code .copy-code:active {
+  transform: scale(0.8);
 }
 main .room-details .content .room-code .url-box {
-  font-size: 1rem;
-  display: flex;
+  align-items: center;
+  border-radius: 1000px;
   border: #00b4d8 2px solid;
   color: #0077b6;
-  border-radius: 1000px;
-  padding: 5px 10px;
+  display: flex;
+  font-size: 1rem;
   margin: 20px 30px;
+  padding: 5px 10px;
 }
 main .room-details .content .room-code .url-box .url {
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 main .room-details .content .room-code .url-box .copy-url {
-  margin-left: auto;
-  padding-left: 10px;
+  border-radius: 50%;
   cursor: pointer;
+  display: inline-block;
+  height: 1.4em;
+  margin-left: auto;
+  margin-right: -5px;
+  outline: none;
+  transition: 0.2s ease;
+  width: 1.4em;
 }
+main .room-details .content .room-code .url-box .copy-url:hover, main .room-details .content .room-code .url-box .copy-url:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+main .room-details .content .room-code .url-box .copy-url:active {
+  transform: scale(0.8);
+}
+
 main .room-details .content .qr-code {
-  width: 120px;
   background: white;
-  padding: 8px;
   border-radius: 10px;
   border: #555 1px solid;
+  padding: 8px;
+  width: 120px;
 }
 main .room-details .content .qr-code img {
   width: 100%;
+}
+
+main .room-details .close-room {
+  background: none;
+  border-radius: 5px;
+  border: #dc2f02 2px solid;
+  color: #dc2f02;
+  cursor: pointer;
+  font-size: 1.1rem;
+  outline: none;
+  padding: 10px 15px;
+  transition: 0.2s ease;
+}
+main .room-details .close-room:hover, main .room-details .close-room:focus {
+  background-color: #dc2f02;
+  color: white;
+}
+main .room-details .close-room:active {
+  transform: scale(0.8);
+}
+main .room-details .close-room .mdi {
+  margin-right: 10px;
 }
 
 @keyframes slideDown {
@@ -219,14 +320,6 @@ main .room-details .content .qr-code img {
   }
   to {
     height: var(--height);
-  }
-}
-@keyframes slideUp {
-  from {
-    height: var(--height);
-  }
-  to {
-    height: 0;
   }
 }
 @keyframes scale {
@@ -246,9 +339,9 @@ main .room-details .content .qr-code img {
     transform: scale(1);
   }
   5% {
-    transform: scale(1.2);
     background-color: #adb5bd;
     left: 20px;
+    transform: scale(1.2);
   }
   5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95% {
     background-color: transparent;

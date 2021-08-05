@@ -3,7 +3,7 @@
 	
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 		<link rel="shortcut icon" href="/favicon.png" type="image/png">
 		<link rel="manifest" href="/manifest.json">
 		<title>Sala de controle do Aperte Primeiro!</title>
@@ -29,20 +29,24 @@
 			<h2 class="label">Código da sala</h2>
 			<div class="content">
 				<div class="room-code">
-					<span class="code">AAAAAA</span>
-					<i class="copy-code mdi mdi-content-copy"></i>
-					<br>
+					<div>
+						<span class="code"></span>
+						<i class="copy-code mdi mdi-content-copy" tabindex="0"></i>
+					</div>
 					<div class="url-box">
-						<span class="url">http://localhost:3000/room/aaaaaa</span>
-						<i class="copy-url mdi mdi-content-copy"></i>
+						<span class="url"></span>
+						<i class="copy-url mdi mdi-content-copy" tabindex="0"></i>
 					</div>
 				</div>
 				<div class="qr-code"></div>
 			</div>
+			<button class="close-room">
+				<i class="mdi mdi-door-closed-lock"></i>Fechar sala
+			</button>
 		</div>
 	</main>
 
-	<div class="templates" style="display:none">
+	<div class="templates">
 		<div class="player" data-id="">
 			<div class="color"></div>
 			<div class="name"></div>

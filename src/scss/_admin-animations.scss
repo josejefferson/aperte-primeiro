@@ -1,0 +1,92 @@
+@keyframes slideDown {
+	from {
+		height: 0;
+	}
+
+	to {
+		height: var(--height);
+	}
+}
+
+@keyframes scale {
+	from {
+		transform: scale(0);
+	}
+
+	50% {
+		transform: scale(1.2);
+	}
+
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes player {
+
+	from,
+	10% {
+		left: 0;
+		transform: scale(1);
+	}
+
+	5% {
+		background-color: #adb5bd;
+		left: 20px;
+		transform: scale(1.2);
+	}
+
+	5%,
+	15%,
+	25%,
+	35%,
+	45%,
+	55%,
+	65%,
+	75%,
+	85%,
+	95% {
+		background-color: transparent;
+	}
+
+	from,
+	10%,
+	20%,
+	30%,
+	40%,
+	50%,
+	60%,
+	70%,
+	80%,
+	90%,
+	to {
+		background-color: #adb5bd;
+	}
+}
+
+@keyframes pulse {
+
+	0%,
+	20%,
+	40%,
+	60%,
+	80% {
+		box-shadow: var(--shadow), 0 0 0 0 var(--shadow-color);
+	}
+
+	15%,
+	35%,
+	55%,
+	75%,
+	95% {
+		box-shadow: var(--shadow), 0 0 0 150px transparent;
+	}
+
+	19%,
+	39%,
+	59%,
+	79%,
+	100% {
+		box-shadow: var(--shadow), 0 0 0 0 transparent;
+	}
+}

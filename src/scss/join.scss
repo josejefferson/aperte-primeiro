@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Indie+Flower&family=Staatliches&display=swap');
 
+@media (max-width: 320px) {
+
+	main section.join-room .join,
+	.new-room .new {
+		padding: 10px 0;
+		width: calc(100% - 30px) !important;
+	}
+
+	main section.join-room h2 {
+		font-size: 1.5rem !important;
+	}
+}
+
+@media (max-width: 425px) {
+	header h1 {
+		font-size: 11vw !important;
+	}
+}
+
 @media (max-width: 640px) {
 	main section.join-room {
 		border-radius: 0 !important;
@@ -8,9 +27,9 @@
 }
 
 * {
+	-webkit-tap-highlight-color: transparent;
 	box-sizing: border-box;
 	user-select: none;
-	-webkit-tap-highlight-color: transparent;
 }
 
 .hidden {
@@ -71,11 +90,7 @@ main section.join-room {
 	}
 }
 
-main section.new-room {
-	margin-top: 4rem;
-}
-
-.join-room .room-id {
+main section.join-room .room-id {
 	background: none;
 	border-radius: 20px;
 	border: #6411ad 3px solid;
@@ -90,28 +105,29 @@ main section.new-room {
 	text-align: center;
 	text-transform: uppercase;
 	transition: .2s ease;
-	transition: .2s ease;
 
 	&:focus {
 		box-shadow: rgb(100, 17, 173, 0.3) 0 0 0 5px;
 	}
 }
 
-.room-not-found {
+main section.join-room .room-not-found {
 	color: red;
 	font-family: Roboto, Arial, sans-serif;
-	margin-top: 10px;
 	font-size: 1em;
+	margin-top: 10px;
 }
 
-.join-room .join {
+main section.join-room .join {
 	--background-side: #007200;
 	--background: #008000;
 	--color: #fff;
 	background-color: var(--background);
-	border: none;
 	border-bottom: rgba(255, 255, 255, 0.5) 3px solid;
+	border-left: none;
 	border-radius: 20px;
+	border-right: none;
+	border-top: none;
 	box-shadow: var(--background-side) 0 8px, #000000 0 8px 5px;
 	color: var(--color);
 	cursor: pointer;
@@ -126,7 +142,7 @@ main section.new-room {
 	&:hover {
 		box-shadow: var(--background-side) 0 8px, #000000 0 8px 10px;
 	}
-	
+
 	&:focus {
 		box-shadow: var(--background-side) 0 12px, #000000 0 8px 10px;
 		transform: translateY(-4px);
@@ -139,11 +155,66 @@ main section.new-room {
 	}
 }
 
-.new-room a {
+main section.options {
+	display: block;
+}
+
+main section.options .option {
+	.mdi {
+		align-items: center;
+		background-color: #555;
+		border-radius: 50%;
+		border: none;
+		color: #CCC;
+		cursor: pointer;
+		display: inline-block;
+		display: inline-block;
+		font-size: 1.5rem;
+		height: 2em;
+		justify-content: center;
+		opacity: 0.5;
+		padding: 10px;
+		transition: .2s ease;
+		width: 2em;
+	}
+	
+	input:checked+.mdi {
+		background-color: #008000;
+		color: white;
+		opacity: 1;
+	}
+
+	input {
+		display: none;
+	}
+
+	&.sound input+.mdi::before {
+		content: '\F0581';
+	}
+
+	&.sound input:checked+.mdi::before {
+		content: '\F057E';
+	}
+
+	&.vibration input+.mdi::before {
+		content: '\F0CD9';
+	}
+
+	&.vibration input:checked+.mdi::before {
+		content: '\F0566';
+	}
+}
+
+main section.new-room {
+	margin: 1rem 0;
+	width: 100%;
+}
+
+main section.new-room a {
 	outline: none;
 }
 
-.new-room .new {
+main section.new-room .new {
 	--color: #dc2f02;
 	background: none;
 	border-radius: 10px;

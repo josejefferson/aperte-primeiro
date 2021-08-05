@@ -1,19 +1,38 @@
-const room = new URL(location).pathname.split('/')[2]
-const roomURL = location.origin + '/room/' + room
-
-const socket = io(`${location.origin}/admin`, {
-	query: { room }
-})
-
 const $roomCode = document.querySelector('.room-details .room-code .code')
 const $roomURL = document.querySelector('.room-details .url-box .url')
+const $copyCode = document.querySelector('.room-details .room-code .copy-code')
+const $copyURL = document.querySelector('.room-details .room-code .copy-url')
 const $players = document.querySelector('.players .players-container')
 const $playerTemplate = document.querySelector('.templates .player')
 const $button = document.querySelector('.last-press .button')
 const $buttonPlayerName = document.querySelector('.last-press .name')
 const $recentColors = document.querySelector('.last-press .recent-colors')
 const $qrCode = document.querySelector('.room-details .qr-code')
+const $closeRoom = document.querySelector('.room-details .close-room')
 
+$closeRoom.addEventListener('click', () => {
+	Swal.fire({
+		title: 'Fechar sala',
+		text: 'Tem certeza que deseja fechar a sala? Todos os jogadores serão desconectados e a sala será excluída!',
+		showDenyButton: true,
+		confirmButtonText: 'Sim',
+		denyButtonText: 'Não',
+		focusDeny: true
+	}).then(result => {
+		if (result.isConfirmed) socket.emit('closeRoom')
+	})
+})
+
+const siren = new Audio('../sounds/siren.mp3')
+siren.loop = true
+
+const options = {
+	sound: localStorage.getItem('apertePrimeiro.option.sound') !== 'false',
+	vibration: localStorage.getItem('apertePrimeiro.option.sound') !== 'false'
+}
+
+const room = new URL(location).pathname.split('/')[2]
+const roomURL = location.origin + '/room/' + room
 $roomCode.innerText = room
 $roomURL.innerText = roomURL
 new QRCode($qrCode, {
@@ -23,13 +42,17 @@ new QRCode($qrCode, {
 	correctLevel: QRCode.CorrectLevel.L
 })
 
+let players = []
+const socket = io(`${location.origin}/admin`, {
+	query: { room }
+})
+
 socket.onAny(console.log)
 
-let players = []
 socket.on('preparation', data => {
 	players = []
 	$players.innerHTML = ''
-	data.players.forEach(makePlayer)
+	data.players.forEach(player => makePlayer(player))
 })
 
 socket.on('playerConnected', player => {
@@ -67,7 +90,16 @@ socket.on('playerChanged', player => {
 	}
 })
 
+let hitTime
 socket.on('buttonPressed', id => {
+	clearTimeout(hitTime)
+	siren.currentTime = 0
+	if (options.sound) siren.play()
+	if (options.vibration) navigator.vibrate(1000)
+	hitTime = setTimeout(() => {
+		siren.pause()
+	}, 3000)
+
 	const play = players.find(p => {
 		return p.sessionID === id
 	})
@@ -88,24 +120,28 @@ socket.on('buttonPressed', id => {
 	}
 })
 
+socket.on('roomClosed', () => {
+	location.href = '/'
+})
+
 function makePlayer(player, update = false) {
 	player.points = player.points || 0
 	player.el = player.el || $playerTemplate.cloneNode(true)
 	player.el.querySelector('.color').style.setProperty('--color', chroma(player.color))
-	player.el.querySelector('.name').innerText = player.name || 'Jogador'
+	player.el.querySelector('.name').innerText = player.name || '[Jogador]'
 	player.el.querySelector('.points').innerText = player.points
 	if (!player.connected) player.el.classList.add('disconnected')
 
 	player.el.querySelector('.options .rename').addEventListener('click', () => {
 		Swal.fire({
-			title: `Renomear "${player.name}"`,
+			title: `Renomear "${player.name || '[Jogador]'}"`,
 			input: 'text',
-			inputValue: player.name,
+			inputValue: player.name || '',
 			showCancelButton: true,
 			cancelButtonText: 'Cancelar'
 		}).then(result => {
-			if (result.isConfirmed && result.value) {
-				socket.emit('setPlayerName', { sessionID: player.sessionID, name: result.value })
+			if (result.isConfirmed) {
+				socket.emit('setPlayerName', { sessionID: player.sessionID, name: result.value || undefined })
 			}
 		})
 	})
@@ -161,4 +197,16 @@ function makeRecentColors(newColor) {
 		$el.style.setProperty('--color', chroma(color))
 		$recentColors.appendChild($el)
 	})
+}
+
+$copyCode.addEventListener('click', () => { copy(room) })
+$copyURL.addEventListener('click', () => { copy(roomURL) })
+
+function copy(text) {
+	const el = document.createElement('textarea')
+	el.value = text
+	document.body.appendChild(el)
+	el.select()
+	document.execCommand('copy')
+	document.body.removeChild(el)
 }

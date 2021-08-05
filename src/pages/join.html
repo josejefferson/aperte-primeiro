@@ -7,6 +7,7 @@
 	<link rel="shortcut icon" href="/favicon.png" type="image/png">
 	<link rel="manifest" href="/manifest.json">
 	<title>Aperte Primeiro!</title>
+	<link rel="stylesheet" href="/lib/css/materialdesignicons.min.css">
 	<link rel="stylesheet" href="/css/join.css">
 </head>
 
@@ -18,14 +19,25 @@
 	<main>
 		<section class="join-room">
 			<h2>Código da sala</h2>
-			<input type="text" class="input-text room-id" placeholder="######" minlength="6" maxlength="6"
-				required autofocus>
+			<input type="text" class="input-text room-id" placeholder="######" minlength="6" maxlength="6" required autofocus>
 			<div class="room-not-found hidden">Sala não encontrada!</div>
 			<button class="join">Entrar na sala</button>
 		</section>
 
 		<section class="new-room">
 			<button class="new">Criar nova sala</button>
+		</section>
+
+		<section class="options">
+			<label class="option sound">
+				<input type="checkbox">
+				<i class="mdi"></i>
+			</label>
+
+			<label class="option vibration">
+				<input type="checkbox">
+				<i class="mdi"></i>
+			</label>
 		</section>
 	</main>
 	<script src="/js/join.js"></script>

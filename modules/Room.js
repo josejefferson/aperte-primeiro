@@ -4,9 +4,10 @@ const { randomString, randomColor } = require('../helpers/index')
 
 const COLORS = ['red', 'green', 'blue', 'orange', 'purple', 'pink', 'aqua', 'lime', 'maroon', 'teal']
 class Room extends EventEmitter {
-	constructor(id, players) {
+	constructor(owner, id, players) {
 		super()
 		this.id = id || randomString(6).toLowerCase()
+		this.owner = owner
 		this.hittable = true
 		this.players = players || []
 	}
@@ -65,6 +66,10 @@ class Room extends EventEmitter {
 			acc.push(color)
 			return acc
 		}, [])
+	}
+
+	closeRoom() {
+		this.emit('close')
 	}
 }
 
