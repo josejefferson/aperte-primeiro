@@ -17,14 +17,14 @@ routes.use((req, res, next) => {
 })
 
 routes.get('/', (req, res) => {
-	res.sendFile('src/pages/join.html', { root: '.' })
+	res.sendFile((process.env.NODE_ENV === 'development' ? 'src' : 'dist') + '/pages/join.html', { root: '.' })
 })
 
 routes.get('/room/:id', (req, res) => {
 	if (!rooms[req.params.id.toLowerCase()]) {
 		return res.redirect('/?roomNotFound')
 	}
-	res.sendFile('src/pages/button.html', { root: '.' })
+	res.sendFile((process.env.NODE_ENV === 'development' ? 'src' : 'dist') + '/pages/button.html', { root: '.' })
 })
 
 routes.get('/admin/:id', (req, res) => {
@@ -35,7 +35,7 @@ routes.get('/admin/:id', (req, res) => {
 	if (room.owner && room.owner !== req.sessionID) {
 		return res.redirect('/?accessRestrict')
 	}
-	res.sendFile('src/pages/admin.html', { root: '.' })
+	res.sendFile((process.env.NODE_ENV === 'development' ? 'src' : 'dist') + '/pages/admin.html', { root: '.' })
 })
 
 routes.get('/newroom', (req, res) => {
