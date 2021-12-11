@@ -1,24 +1,24 @@
 {
-  "name": "aperte-primeiro",
-  "version": "1.0.0",
-  "main": "index.js",
+	"name": "aperte-primeiro",
+	"version": "1.0.0",
+	"main": "index.js",
 	"scripts": {
 		"start": "node index.js",
 		"dev": "npx cross-env NODE_ENV=development node index.js",
 		"build": "npx sass src/scss:src/css --no-source-map --style compressed && npx gulp"
 	},
-  "license": "MIT",
-  "dependencies": {
-    "cookie": "^0.4.1",
-    "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
-    "socket.io": "^4.0.1"
-  },
+	"license": "MIT",
+	"dependencies": {
+		"cookie": "^0.4.1",
+		"cookie-parser": "^1.4.6",
+		"express": "^4.17.1",
+		"socket.io": "^4.4.0"
+	},
 	"devDependencies": {
 		"gulp": "^4.0.2",
 		"gulp-clean": "^0.4.0",
 		"gulp-htmlmin": "^5.0.1",
 		"gulp-jsonminify": "^1.1.0",
-		"gulp-uglify-es": "^2.0.0"
+		"gulp-uglify-es": "^3.0.0"
 	}
 }
