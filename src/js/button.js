@@ -24,6 +24,10 @@ socket.on('disconnect', () => {
 	$main.classList.remove('connected')
 })
 
+socket.on('ping', (id) => {
+	socket.emit('pong', id)
+})
+
 socket.on('preparation', data => {
 	$main.style.setProperty('--color-primary', chroma(data.color))
 	$main.style.setProperty('--color-side', chroma(data.color).darken())

@@ -33,6 +33,7 @@
 
 	&.disconnected .color,
 	&.disconnected .name,
+	&.disconnected .ping,
 	&.disconnected .points {
 		opacity: 0.2;
 	}
@@ -63,6 +64,12 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.players .player .ping {
+	font-size: 0.8em;
+	margin-left: 10px;
+	opacity: 0.5;
 }
 
 .players .player .points {

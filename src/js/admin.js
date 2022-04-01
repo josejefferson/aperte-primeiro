@@ -126,10 +126,12 @@ socket.on('roomClosed', () => {
 
 function makePlayer(player, update = false) {
 	player.points = player.points || 0
+	player.pingTime = player.pingTime >= 1000 ? '999+' : (player.pingTime ? player.pingTime + 'ms' : '')
 	player.el = player.el || $playerTemplate.cloneNode(true)
 	player.el.querySelector('.color').style.setProperty('--color', chroma(player.color))
 	player.el.querySelector('.name').innerText = player.name || '[Jogador]'
 	player.el.querySelector('.points').innerText = player.points
+	player.el.querySelector('.ping').innerText = player.pingTime
 	if (!player.connected) player.el.classList.add('disconnected')
 
 	player.el.querySelector('.options .rename').addEventListener('click', () => {

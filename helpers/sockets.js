@@ -27,6 +27,10 @@ module.exports = io => {
 			socket.emit('preparation', player)
 		})
 
+		player.on('ping', (id) => {
+			socket.emit('ping', id)
+		})
+
 		player.on('buttonPress', () => {
 			socket.emit('buttonPressed')
 		})
@@ -48,6 +52,7 @@ module.exports = io => {
 			socket.disconnect()
 		})
 
+		socket.on('pong', id => player.emit('pong', id))
 		socket.on('setName', name => player.setName(name))
 		socket.on('buttonPress', () => socket.room.buttonPress(socket.sessionID))
 		socket.on('disconnect', () => player.disconnect())

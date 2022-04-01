@@ -58,7 +58,7 @@ body {
   position: relative;
   transition: 0.2s ease;
 }
-.players .player.disconnected .color, .players .player.disconnected .name, .players .player.disconnected .points {
+.players .player.disconnected .color, .players .player.disconnected .name, .players .player.disconnected .ping, .players .player.disconnected .points {
   opacity: 0.2;
 }
 .players .player.press {
@@ -84,6 +84,12 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.players .player .ping {
+  font-size: 0.8em;
+  margin-left: 10px;
+  opacity: 0.5;
 }
 
 .players .player .points {

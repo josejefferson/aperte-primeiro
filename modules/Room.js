@@ -10,6 +10,8 @@ class Room extends EventEmitter {
 		this.owner = owner
 		this.hittable = true
 		this.players = players || []
+
+		setInterval(this.ping.bind(this), 1000)
 	}
 
 	connectedPlayer(sessionID, socket) {
@@ -70,6 +72,29 @@ class Room extends EventEmitter {
 
 	closeRoom() {
 		this.emit('close')
+	}
+
+	ping() {
+		for (const player of this.players) {
+			if (!player.connected) {
+				if (player.pingTime >= 1000) continue
+				player.pingTime = 1000
+				this.emit('playerChanged', player)
+			}
+
+			this.emit('playerChanged', player)
+			player.pingID = randomString()
+			player.pingTime = 1000
+			player.pingStartTime = Date.now()
+			if (player.pong) player.off('pong', player.pong)
+			player.pong = (id) => {
+				if (id === player.pingID) {
+					player.pingTime = Date.now() - player.pingStartTime
+				}
+			}
+			player.emit('ping', player.pingID)
+			player.once('pong', player.pong)
+		}
 	}
 }
 
