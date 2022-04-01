@@ -12,8 +12,9 @@ app.use(cookieParser())
 app.use(express.static(process.env.NODE_ENV === 'development' ? 'src' : 'dist'))
 app.use('/', routes)
 
-http.listen(process.env.PORT || 3000, () => {
-	console.log('[SERVIDOR] Iniciado na porta 3000')
+const PORT = process.env.PORT || 3000
+http.listen(PORT, () => {
+	console.log('[SERVIDOR] Iniciado na porta ' + PORT)
 })
 
 process.on('uncaughtException', console.error)

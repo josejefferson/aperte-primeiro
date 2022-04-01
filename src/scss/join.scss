@@ -111,7 +111,8 @@ main section.join-room .room-id {
 	}
 }
 
-main section.join-room .room-not-found {
+main section.join-room .room-not-found ,
+main section.join-room .access-restrict {
 	color: red;
 	font-family: Roboto, Arial, sans-serif;
 	font-size: 1em;

@@ -19,7 +19,6 @@ module.exports = io => {
 		next()
 	}
 
-
 	io.of('/room').on('connection', socket => {
 		const player = socket.room.connectedPlayer(socket.sessionID, socket)
 
@@ -58,7 +57,6 @@ module.exports = io => {
 		socket.on('disconnect', () => player.disconnect())
 		player.connect()
 	})
-
 
 	io.of('/admin').on('connection', socket => {
 		if (socket.room.owner && (socket.sessionID !== socket.room.owner)) {

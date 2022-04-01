@@ -3,10 +3,16 @@ const $roomID = document.querySelector('.room-id')
 const $joinRoom = document.querySelector('.join')
 const $newRoom = document.querySelector('.new')
 const $roomNotFound = document.querySelector('.room-not-found')
+const $accessRestrict = document.querySelector('.access-restrict')
 
 // Room not found
 if (new URLSearchParams(location.search).get('roomNotFound') === '') {
 	$roomNotFound.classList.remove('hidden')
+}
+
+// Access restrict
+if (new URLSearchParams(location.search).get('accessRestrict') === '') {
+	$accessRestrict.classList.remove('hidden')
 }
 
 // Join room

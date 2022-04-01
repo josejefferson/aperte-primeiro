@@ -1,6 +1,12 @@
 const Room = require('../modules/Room')
 
-module.exports = {
-	rooms: { aaaaaa: new Room(null, 'aaaaaa') },
+const data = {
+	rooms: {},
 	sessions: {}
 }
+
+if (process.env.NODE_ENV === 'development') {
+	data.rooms['aaaaaa'] = new Room(null, 'aaaaaa')
+}
+
+module.exports = data
