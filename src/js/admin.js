@@ -149,7 +149,7 @@ function makePlayer(player, update = false) {
 	})
 	player.el.querySelector('.options .change-color').addEventListener('click', () => {
 		Swal.fire({
-			title: `Mudar cor de "${player.name}"`,
+			title: `Mudar cor de "${player.name || '[Jogador]'}"`,
 			input: 'text',
 			showCancelButton: true,
 			cancelButtonText: 'Cancelar'
@@ -162,7 +162,7 @@ function makePlayer(player, update = false) {
 	player.el.querySelector('.options .remove').addEventListener('click', () => {
 		Swal.fire({
 			title: 'Remover jogador',
-			text: `Tem certeza que deseja remover o jogador "${player.name}"?`,
+			text: `Tem certeza que deseja remover o jogador "${player.name || '[Jogador]'}"?`,
 			showDenyButton: true,
 			confirmButtonText: 'Sim',
 			denyButtonText: 'Não',
