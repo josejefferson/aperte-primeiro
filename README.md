@@ -7,3 +7,12 @@ Ideal para jogos de perguntas em que um jogador deve apertar primeiro o botão p
 É possível criar várias salas e não há limite para o número de jogadores, além disso ele também marca o placar!
 
 ![Demonstração](demo.png)
+
+## Instalação
+```sh
+git clone https://github.com/josejefferson/aperte-primeiro
+cd aperte-primeiro
+yarn
+yarn build
+yarn start
+```
