@@ -11,6 +11,7 @@
 	"dependencies": {
 		"cookie": "^0.4.1",
 		"cookie-parser": "^1.4.6",
+		"cross-env": "^7.0.3",
 		"express": "^4.17.1",
 		"socket.io": "^4.4.0"
 	},
@@ -19,6 +20,7 @@
 		"gulp-clean": "^0.4.0",
 		"gulp-htmlmin": "^5.0.1",
 		"gulp-jsonminify": "^1.1.0",
-		"gulp-uglify-es": "^3.0.0"
+		"gulp-uglify-es": "^3.0.0",
+		"sass": "^1.60.0"
 	}
 }
